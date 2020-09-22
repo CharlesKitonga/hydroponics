@@ -8,6 +8,8 @@ import newRoutePage from './components/pages/newRoutePage';
 import hooks from './components/pages/basic/Hooks';
 import methods from './components/pages/basic/Methods';
 
+import usecomp from './vuex/usecomp';
+
 /**Project Pages  */
 import home from './components/pages/Home';
 import tags from './admin/pages/Tags';
@@ -44,6 +46,11 @@ const routes =[
     {
         path: '/hooks',
         component: hooks
+    },
+     //understanding vuex
+     {
+        path: '/usecomp',
+        component: usecomp
     },
     //understanding vue methods
     {

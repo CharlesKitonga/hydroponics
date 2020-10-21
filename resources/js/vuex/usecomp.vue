@@ -2,7 +2,7 @@
     <div class="content">
         <div class="container-fluid">
             <h1>Show how vuex works</h1>
-            Current Counter State is : {{$store.state.counter}}
+            Current Counter State is : {{getCounter}}
             <div>
                 <compA></compA>
             </div>
@@ -22,10 +22,16 @@
     import compA from './compA'
     import compB from './compB'
     import compC from './compC'
+    import {mapGetters} from 'vuex'
 
     export default {
-        mounted() {
-            console.log('Component mounted.')
+        data() {
+            return {
+                
+            }
+        },
+        computed : {
+            ...mapGetters(['getCounter'])
         },
         methods: {
             changeCounter(){

@@ -8,6 +8,11 @@ export default new  Vuex.Store({
     state : {
         counter : 100
     },
+    getters : {
+        getCounter(state){
+            return state.counter
+        }
+    },
     mutations : {
     changeTheCounter(state, data){
         state.counter += data
@@ -19,8 +24,7 @@ export const state =() => ({
 
 });
 
-//common getters
-export const getters = {
+ export const getters = {
 
 }
 

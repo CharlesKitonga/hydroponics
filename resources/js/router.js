@@ -10,10 +10,12 @@ import methods from './components/pages/basic/Methods';
 
 import usecomp from './vuex/usecomp';
 
-/**Project Pages  */
+/**Project Admin Pages  */
 import home from './components/pages/Home';
 import tags from './admin/pages/Tags';
 import categories from './admin/pages/Category';
+import adminusers from './admin/pages/Adminusers';
+import login from './admin/pages/Login';
 
 const routes =[
 
@@ -30,6 +32,14 @@ const routes =[
     {
         path: '/categories',
         component: categories
+    },
+    {
+        path: '/adminusers',
+        component: adminusers
+    },
+    {
+        path: '/login',
+        component: login
     },
 
     /** End of projects routes */

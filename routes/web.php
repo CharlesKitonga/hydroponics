@@ -32,6 +32,13 @@ Route::post('app/edit_category', 'CategoryController@update');
 Route::post('app/delete_category', 'CategoryController@destroy');
 Route::post('app/delete_image', 'CategoryController@deleteImage');
 
+	/** User Routes */
+Route::get('app/get_users', 'UsersController@index');
+Route::post('app/create_user', 'UsersController@store');	
+Route::post('app/edit_user', 'UsersController@update');
+Route::post('app/admin_login', 'UsersController@adminLogin');
+
+
 
 /**End of Admin Routes */
 

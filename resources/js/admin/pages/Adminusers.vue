@@ -52,9 +52,8 @@
                         </div>
                         <div class="space">
 
-                            <Select v-model="data.userType" style="width:200px" placeholder="Select User Type...">
-                                <Option value="Admin">Admin</Option>
-                                <Option value="Editor">Editor</Option>
+                            <Select v-model="data.role_id" style="width:200px" placeholder="Select User Type...">
+                                <Option :value="r.id" v-for="(r, i) in roles" :key="i" >{{r.roleName}}</Option>
                             </Select>
                         </div>
 
@@ -87,10 +86,9 @@
 
                         <div class="space">
 
-                            <Select v-model="editData.userType" style="width:200px" placeholder="Select User Type...">
-                                <Option value="Admin">Admin</Option>
-                                <Option value="Editor">Editor</Option>
-                            </Select>
+                            <Select v-model="editData.role_id" style="width:200px" placeholder="Select User Type...">
+                                <Option :value="r.id" v-for="(r, i) in roles" :key="i" v-if="roles.length">{{r.roleName}}</Option>
+                             </Select>
                         </div>
 
 
@@ -110,7 +108,7 @@
                         <p>You won't be able to revert this!</p>
                     </div>
                     <div slot="footer">
-                        <Button type="error" size="large" long :loading="isDeleting" :disabled="isDeleting" @click="deleteTag">Delete</Button>
+                        <Button type="error" size="large" long :loading="isDeleting" :disabled="isDeleting" @click="deleteUser">Delete</Button>
                     </div>
                 </Modal>
 			</div>
@@ -126,7 +124,7 @@ export default {
                 fullName : '',
                 email : '',
                 password : '',
-                userType : ''
+                role_id: ''
             },
             addModal : false,
             editModal : false,
@@ -139,7 +137,8 @@ export default {
             index : -1,
             showDeleteModal : false,
             deleteItem : {},
-            deletingIndex : -1
+            deletingIndex : -1,
+            roles: [],
         }
     },
 
@@ -148,7 +147,7 @@ export default {
             if (this.data.fullName.trim()=='') return this.e('Full name field is required')
             if (this.data.email.trim()=='') return this.e('Email field is required')
             if (this.data.password.trim()=='') return this.e('Password field is required')
-            if (this.data.userType.trim()=='') return this.e('Usertype field is required')
+            if (!this.data.role_id) return this.e('Usertype field is required')
 
             const res = await this.callApi('post', 'app/create_user', this.data)
             if (res.status===201) {
@@ -169,7 +168,7 @@ export default {
         async editUser(){
             if (this.editData.fullName.trim()=='') return this.e('Full name field is required')
             if (this.editData.email.trim()=='') return this.e('Email field is required')
-            if (this.editData.userType.trim()=='') return this.e('Usertype field is required')
+            if (!this.editData.role_id) return this.e('Usertype field is required')
 
             const res = await this.callApi('post', 'app/edit_user', this.editData)
             if (res.status===200) {
@@ -192,19 +191,19 @@ export default {
                 id : user.id,
                 fullName : user.fullName,
                 email : user.email,
-                userType: user.userType
+                userType: user.role_id
             }
             this.editData = obj
             this.editModal = true
             this.index = index
         },
 
-        async deleteTag(){
+        async deleteUser(){
             this.deletingIndex = true
-            const res = await this.callApi('post', 'app/delete_tag', this.deleteItem)
+            const res = await this.callApi('post', 'app/delete_user', this.deleteItem)
             if (res.status===200) {
                 this.users.splice(this.deletingIndex,1)
-                this.s('Tag Deleted Successfully')
+                this.s('User Deleted Successfully')
             }else{
                 this.swr()
             }
@@ -221,10 +220,22 @@ export default {
     },
 
     async created(){
-        const res = await this.callApi('get', 'app/get_users')
+        const [res, resRole] = await Promise.all([
+            this.callApi('get', 'app/get_users'),
+            this.callApi('get', 'app/get_roles')
+        ])
+
+
         if (res.status===200) {
             this.users = res.data
-        }else{
+        }
+        else{
+            this.swr()
+        }
+        if (resRole.status===200) {
+            this.roles = resRole.data
+        }
+        else{
             this.swr()
         }
     }

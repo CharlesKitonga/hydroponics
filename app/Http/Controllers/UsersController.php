@@ -41,16 +41,16 @@ class UsersController extends Controller
             'fullName' => 'required|string',
             'email' => 'bail|required|email|unique:users',
             'password' => 'bail|required|min:8',
-            'userType' => 'required|string'
+            'role_id' => 'required|integer'
         ]);
 
         $password = bcrypt($request->password);
-        
+
         $user = User::create([
             'fullName' => $request->fullName,
             'email' => $request->email,
             'password' => $password,
-            'userType' => $request->userType,
+            'role_id' => $request->role_id,
         ]);
 
         return $user;
@@ -70,18 +70,18 @@ class UsersController extends Controller
             'fullName' => 'required|string',
             'email' => "bail|required|email|unique:users,email,$request->id",
             'password' => 'min:8',
-            'userType' => 'required|string'
+            'role_id' => 'required|integer'
         ]);
         $data = [
                 'fullName' => $request->fullName,
                 'email' => $request->email,
-                'userType' => $request->userType,
+                'role_id' => $request->role_id,
         ];
         if ($request->password) {
             $password = bcrypt($request->password);
             $data['password'] = $password;
         }
-        
+
         $user = User::where('id', $request->id)->update($data);
 
         return $user;
@@ -94,8 +94,16 @@ class UsersController extends Controller
             'password' => 'bail|required|min:8'
         ]);
         if (Auth::attempt(['email'=>$request->email, 'password'=>$request->password])) {
+            $user = Auth::user();
+            if ($user->role->isAdmin == 0) {
+                Auth::logout();
+                return response()->json([
+                    'msg' => 'Incorrect login details',
+                ],401);
+            }
             return response()->json([
                 'msg' => 'You are logged in',
+                'user' => $user
             ]);
         }else{
             return response()->json([
@@ -109,8 +117,13 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+
+        //validate request
+        $this->validate($request, [
+            'id'  => 'required'
+        ]);
+        return User::where('id', $request->id)->delete();
     }
 }

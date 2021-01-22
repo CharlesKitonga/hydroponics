@@ -16,6 +16,7 @@ import tags from './admin/pages/Tags';
 import categories from './admin/pages/Category';
 import adminusers from './admin/pages/Adminusers';
 import login from './admin/pages/Login';
+import role from './admin/pages/Role';
 
 const routes =[
 
@@ -41,6 +42,11 @@ const routes =[
         path: '/login',
         component: login
     },
+    {
+        path: '/role',
+        component: role
+    },
+
 
     /** End of projects routes */
 

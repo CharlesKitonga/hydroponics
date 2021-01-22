@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 export default new  Vuex.Store({
     state : {
-        counter : 100
+        counter : 100,
+        user: false
     },
     getters : {
         getCounter(state){
@@ -14,10 +15,13 @@ export default new  Vuex.Store({
         }
     },
     mutations : {
-    changeTheCounter(state, data){
-        state.counter += data
+        changeTheCounter(state, data){
+            state.counter += data
+        },
+        updateUser(state, data){
+            state.user = data
+        }
     }
-}
 })
 export const strict = false
 export const state =() => ({

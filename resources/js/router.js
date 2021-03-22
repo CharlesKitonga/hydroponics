@@ -17,34 +17,51 @@ import categories from './admin/pages/Category';
 import adminusers from './admin/pages/Adminusers';
 import login from './admin/pages/Login';
 import role from './admin/pages/Role';
-
+import assignRole from './admin/pages/assignRole'
 const routes =[
 
     /** projects routes start... */
     {
         path: '/',
-        component: home
+        component: home,
+        name: 'home'
     },
 
     {
         path: '/tags',
-        component: tags
+        component: tags,
+        name: 'tags'
+
     },
     {
         path: '/categories',
-        component: categories
+        component: categories,
+        name: 'categories'
+
     },
     {
         path: '/adminusers',
-        component: adminusers
+        component: adminusers,
+        name: 'adminusers'
+
     },
     {
         path: '/login',
-        component: login
+        component: login,
+        name: 'login'
+
     },
     {
         path: '/role',
-        component: role
+        component: role,
+        name: 'role'
+
+    },
+    {
+        path: '/assignRole',
+        component: assignRole,
+        name: 'assignRole'
+
     },
 
 

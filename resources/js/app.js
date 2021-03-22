@@ -6,21 +6,7 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue')
-import router from './router'
-import store from './store'
-import ViewUI from 'view-design';
-import 'view-design/dist/styles/iview.css';
-
-Vue.use(ViewUI);
-
-import common from './common'
-Vue.mixin(common)
-
-import moment from 'moment';//for displaying date and time nicely
-Vue.filter('myDate', function(created){
-    return moment(created).format('MMMM Do YYYY'); // December 10th 2019
-});
+window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -33,7 +19,7 @@ Vue.filter('myDate', function(created){
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('mainapp', require('./components/Mainapp.vue').default);
+Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -43,6 +29,4 @@ Vue.component('mainapp', require('./components/Mainapp.vue').default);
 
 const app = new Vue({
     el: '#app',
-    router,
-    store
 });

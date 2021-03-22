@@ -6,7 +6,7 @@
 				<div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20">
 					<p class="_title0">Role Management
                         <Select v-model="data.role_id" style="width:200px" placeholder="Select User Type...">
-                            <Option :value="r.id" v-for="(r, i) in roles" :key="i" v-if="roles.length">{{r.roleName}}</Option>
+                            <Option :value="r.id" v-for="(r, i) in roles" :key="i">{{r.roleName}}</Option>
                         </Select>
                     </p>
 
@@ -22,12 +22,12 @@
 							</tr>
 								<!-- TABLE TITLE -->
 								<!-- ITEMS -->
-							<tr>
-								<td>Blog</td>
-								<td>Yes</td>
-								<td>Yes</td>
-								<td>Yes</td>
-								<td>Yes</td>
+							<tr v-for="(r, i) in resources" :key="i">
+								<td>{{r.resourceName}}</td>	
+                                <td><Checkbox v-model="r.read"></Checkbox></td>
+                                <td><Checkbox v-model="r.write"></Checkbox></td>
+                                <td><Checkbox v-model="r.update"></Checkbox></td>
+                                <td><Checkbox v-model="r.delete"></Checkbox></td>
 							</tr>
 							<!-- ITEMS -->
 						</table>
@@ -40,24 +40,23 @@
 </template>
 <script>
 export default {
-
     data(){
         return{
-            data :{
-                roleName : '',
+            data: {
+                roleName : "",
                 role_id: null
             },
-            resources: [],
-            roles: [
-                {resourceName: home, read: false, write:false, update:false, delete: false, name: home},
-                {resourceName: tags, read: false, write:false, update:false, delete: false, name: tags},
-                {resourceName: categories, read: false, write:false, update:false, delete: false, name: categories},
-                {resourceName: adminusers, read: false, write:false, update:false, delete: false, name: adminusers},
-                {resourceName: role, read: false, write:false, update:false, delete: false, name: role},
-                {resourceName: assignRole, read: false, write:false, update:false, delete: false, name: assignRole},
+            roles : [],
+            resources: [
+                {resourceName: 'Home', read: true, write:false, update:false, delete: false, name: 'home'},
+                {resourceName: 'Tags', read: true, write:false, update:false, delete: false, name: 'tags'},
+                {resourceName: 'Categories', read: false, write:false, update:false, delete: false, name: 'categories'},
+                {resourceName: 'Admin users', read: false, write:false, update:false, delete: false, name: 'adminusers'},
+                {resourceName: 'Role', read: false, write:false, update:false, delete: false, name: 'role'},
+                {resourceName: 'Assign Role', read: false, write:false, update:false, delete: false, name: 'assignRole'},
 
-            ],
-        }
+            ]
+        };
     },
 
     methods : {

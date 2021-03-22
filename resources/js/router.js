@@ -11,7 +11,7 @@ import methods from './components/pages/basic/Methods';
 import usecomp from './vuex/usecomp';
 
 /**Project Admin Pages  */
-import home from './components/pages/Home';
+import home from './components/pages/Home.vue';
 import tags from './admin/pages/Tags';
 import categories from './admin/pages/Category';
 import adminusers from './admin/pages/Adminusers';

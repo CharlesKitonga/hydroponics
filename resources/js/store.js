@@ -7,19 +7,26 @@ Vue.use(Vuex)
 export default new  Vuex.Store({
     state : {
         counter : 100,
-        user: false
+        user: false,
+        userPermission: null
     },
     getters : {
         getCounter(state){
             return state.counter
+        },
+        getUserPermission(state){
+            return state.userPermission
         }
     },
     mutations : {
         changeTheCounter(state, data){
             state.counter += data
         },
-        updateUser(state, data){
+        setUpdateUser(state, data){
             state.user = data
+        },
+        setUserPermission(state, data){
+            state.userPermission = data
         }
     }
 })

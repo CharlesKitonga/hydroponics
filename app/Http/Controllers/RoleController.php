@@ -86,6 +86,15 @@ class RoleController extends Controller
         ]);
     }
 
+    public function assignRole(Request $request){
+        $this->validate($request, [
+            'permission' => 'required',
+            'id' => 'required|integer   ',
+        ]);
+        return Role::where('id', $request->id)->update([
+            'permission' => $request->permission
+        ]);
+    }
     /**
      * Remove the specified resource from storage.
      *

@@ -4,7 +4,7 @@
 			<div class="container-fluid">
 				<!--~~~~~~~ TABLE ONE ~~~~~~~~~-->
 				<div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20">
-					<p class="_title0">Catgeories Table <Button  type="primary" @click="addModal=true"><Icon type="md-add-circle" /> Add a Category</Button></p>
+					<p class="_title0">Catgeories Table <Button  type="primary" @click="addModal=true" v-if="isWritePermitted"><Icon type="md-add-circle" /> Add a Category</Button></p>
 
 					<div class="_overflow _table_div">
 						<table class="_table">
@@ -24,8 +24,8 @@
                                 </td>
 								<td class="_table_name">{{category.category_name}}</td>
 								<td>
-                                    <Button type="info" size="small" @click="showEditModal(category, i)">Edit</Button>
-                                    <Button type="error" size="small" @click="showDeleteCategory(category, deletingIndex)" :loading="category.isDeleting">Delete</Button>
+                                    <Button type="info" size="small" @click="showEditModal(category, i)" v-if="isUpdatePermitted">Edit</Button>
+                                    <Button type="error" size="small" @click="showDeleteCategory(category, deletingIndex)" :loading="category.isDeleting" v-if="isDeletePermitted">Delete</Button>
 								</td>
 							</tr>
 							<!-- ITEMS -->

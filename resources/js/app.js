@@ -14,8 +14,11 @@ import 'view-design/dist/styles/iview.css';
 
 Vue.use(ViewUI);
 
-import common from './common'
-Vue.mixin(common)
+import common from './common';
+Vue.mixin(common);
+
+import Editor from 'vue-editor-js/src/index';
+Vue.use(Editor);
 
 import moment from 'moment';//for displaying date and time nicely
 Vue.filter('myDate', function(created){

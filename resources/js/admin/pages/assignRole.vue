@@ -5,7 +5,7 @@
 				<!--~~~~~~~ TABLE ONE ~~~~~~~~~-->
 				<div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20">
 					<p class="_title0">Role Management
-                        <Select v-model="data.role_id" style="width:200px" placeholder="Select User Type...">
+                        <Select v-model="data.id" style="width:200px" placeholder="Select User Type..." @on-change="changeUser">
                             <Option :value="r.id" v-for="(r, i) in roles" :key="i">{{r.roleName}}</Option>
                         </Select>
                     </p>
@@ -30,6 +30,9 @@
                                 <td><Checkbox v-model="r.delete"></Checkbox></td>
 							</tr>
 							<!-- ITEMS -->
+                            <div class="center_button">
+                                <Button type="primary" :loading="isSending" :disabled="isSending" @click="assignRoles">Assign</Button>
+                            </div>
 						</table>
 					</div>
 				</div>
@@ -43,23 +46,53 @@ export default {
     data(){
         return{
             data: {
-                roleName : "",
-                role_id: null
+                id: null
             },
+            isSending : false,
             roles : [],
             resources: [
-                {resourceName: 'Home', read: true, write:false, update:false, delete: false, name: 'home'},
-                {resourceName: 'Tags', read: true, write:false, update:false, delete: false, name: 'tags'},
+                {resourceName: 'Home', read: false, write:false, update:false, delete: false, name: '/'},
+                {resourceName: 'Tags', read: false, write:false, update:false, delete: false, name: 'tags'},
                 {resourceName: 'Categories', read: false, write:false, update:false, delete: false, name: 'categories'},
                 {resourceName: 'Admin users', read: false, write:false, update:false, delete: false, name: 'adminusers'},
                 {resourceName: 'Role', read: false, write:false, update:false, delete: false, name: 'role'},
                 {resourceName: 'Assign Role', read: false, write:false, update:false, delete: false, name: 'assignRole'},
 
-            ]
+            ],
+            defaultResourcesPermission: [
+                {resourceName: 'Home', read: false, write:false, update:false, delete: false, name: '/'},
+                {resourceName: 'Tags', read: false, write:false, update:false, delete: false, name: 'tags'},
+                {resourceName: 'Categories', read: false, write:false, update:false, delete: false, name: 'categories'},
+                {resourceName: 'Admin users', read: false, write:false, update:false, delete: false, name: 'adminusers'},
+                {resourceName: 'Role', read: false, write:false, update:false, delete: false, name: 'role'},
+                {resourceName: 'Assign Role', read: false, write:false, update:false, delete: false, name: 'assignRole'},
+
+            ],
+
         };
     },
 
     methods : {
+        async assignRoles(){
+            let data = JSON.stringify(this.resources)
+            const res = await this.callApi('post', 'app/assign_roles', {'permission' : data, id: this.data.id})
+            if(res.status==200) {
+                this.s('Role has been assigned Successfully')
+                let index = this.roles.findIndex(role => role.id == this.data.id)
+                this.roles[index].permission = data
+            }else{
+                this.swr()
+            }
+        },
+        changeUser(){
+            let index = this.roles.findIndex(role => role.id == this.data.id)
+            let permission = this.roles[index].permission
+            if(!permission){
+                this.resources = this.defaultResourcesPermission
+            }else{
+                this.resources = JSON.parse(permission)
+            }
+        }
 
 
     },
@@ -68,7 +101,13 @@ export default {
         //console.log(this.$route)
         const res = await this.callApi('get', 'app/get_roles')
         if (res.status===200) {
-            this.roles = res.data
+            this.roles = res.data;
+            if(res.data.length){
+                this.data.id = res.data[0].id
+                if (res.data[0].permission) {
+                    this.resources = JSON.parse(res.data[0].permission)
+                }
+            }
         }else{
             this.swr()
         }

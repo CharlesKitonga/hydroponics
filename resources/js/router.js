@@ -18,6 +18,8 @@ import adminusers from './admin/pages/Adminusers';
 import login from './admin/pages/Login';
 import role from './admin/pages/Role';
 import assignRole from './admin/pages/assignRole'
+import createBlog from './admin/pages/createBlog'
+
 const routes =[
 
     /** projects routes start... */
@@ -61,6 +63,12 @@ const routes =[
         path: '/assignRole',
         component: assignRole,
         name: 'assignRole'
+
+    },
+    {
+        path: '/createBlog',
+        component: createBlog,
+        name: 'createBlog'
 
     },
 

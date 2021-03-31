@@ -17,10 +17,14 @@ Vue.use(ViewUI);
 import common from './common';
 Vue.mixin(common);
 
+import jsonToHtml from './jsonToHtml'
+Vue.mixin(jsonToHtml)
+
 import Editor from 'vue-editor-js/src/index';
 Vue.use(Editor);
 
 import moment from 'moment';//for displaying date and time nicely
+import Vue from 'vue';
 Vue.filter('myDate', function(created){
     return moment(created).format('MMMM Do YYYY'); // December 10th 2019
 });

@@ -8,7 +8,7 @@
 					<p class="_title0">Create blog</p>
 					<div class="_input_field">
 						 <Input type="text" v-model="data.title" placeholder="Title" />
-					 </div>
+					</div>
 					<div class="_overflow _table_div blog_editor">
 
                              <editor
@@ -27,12 +27,12 @@
 						 <Input  type="textarea" v-model="data.post_excerpt" :rows="4" placeholder="Post excerpt " />
 					 </div>
 					<div class="_input_field">
-						<Select filterable multiple placeholder="Select category" v-model="data.category_id">
+						<Select  filterable multiple placeholder="Select category" v-model="data.category_id">
 							<Option v-for="(c, i) in category" :value="c.id" :key="i">{{ c.category_name }}</Option>
 						</Select>
 					</div>
 					<div class="_input_field">
-						<Select filterable multiple placeholder="Select tag" v-model="data.tag_id">
+						<Select  filterable multiple placeholder="Select tag" v-model="data.tag_id">
 							<Option v-for="(t, i) in tag" :value="t.id" :key="i">{{ t.tag_name }}</Option>
 						</Select>
 					</div>
@@ -58,44 +58,10 @@
 
 
 <script>
-
-import ImageTool from '@editorjs/image';
-import List from '@editorjs/list';
-import Header from '@editorjs/header';
-import CheckList from '@editorjs/checklist';
-import Embed from '@editorjs/embed';
-import Quote from '@editorjs/quote';
-import LinkTool from '@editorjs/link';
-//- import SimpleImage  from '@editorjs/simple-image';
-
 export default {
-    
 	data(){
 		return {
-            
             config: {
-                actions: [
-                    {
-                        name: 'new_button',
-                        icon: '<svg>...</svg>',
-                        title: 'New Button',
-                        action: (name) => {
-                            alert(`${name} button clicked`);
-                            return true;
-                        }
-                    }
-                ],
-                tools: {
-                    header: Header,
-                    List: List,
-                    CheckList: CheckList,
-                    image: {
-                        class: ImageTool
-                    },
-                    Embed: Embed,
-                    Quote: Quote ,
-                    LinkTool: LinkTool 
-                }
 			},
             initData: null,
             data: {
@@ -118,16 +84,16 @@ export default {
             var data = response
 			await this.outputHtml(data.blocks)
 			this.data.post = this.articleHTML
-            console.log(this.articleHTML)
             this.data.jsonData = JSON.stringify(data)
+			this.isCreating = true
+			const res = await this.callApi('post', 'app/create-blog', this.data)
             if(this.data.post.trim()=='') return this.e('Post is required')
             if(this.data.title.trim()=='') return this.e('Title is required')
             if(this.data.post_excerpt.trim()=='') return this.e('Post exerpt is required')
             if(this.data.metaDescription.trim()=='') return this.e('Meta description is required')
             if(!this.data.tag_id.length) return this.e('Tag is required')
             if(!this.data.category_id.length) return this.e('Category is required')
-			this.isCreating = true
-			const res = await this.callApi('post', 'app/createBlog', this.data)
+
 			if(res.status===200){
 				this.s('Blog has been created successfully!')
                 // redirect...

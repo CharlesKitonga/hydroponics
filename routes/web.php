@@ -47,13 +47,17 @@ Route::prefix('app')->middleware([AdminCheck::class])->group(function(){
     Route::post('/edit_user', 'UsersController@update');
     Route::post('/delete_user', 'UsersController@destroy');
 
+    /** Blog Routes */
+    Route::post('create-blog', 'AdminBlogController@store');
+    Route::get('blogdata', 'AdminBlogController@blogdata');
+    Route::post('/delete_blog', 'AdminBlogController@destroy');
+
+    
     Route::post('/admin_login', 'UsersController@adminLogin');
 
 });
-
 Route::post('createBlog', 'AdminBlogController@uploadImage');
 Route::get('slug', 'AdminBlogController@slug');
-
 
 Route::get('/', 'AdminController@index');
 Route::get('/logout', 'AdminController@Logout');

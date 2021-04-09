@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Blog;
-
+use App\Blogcategory;
+use App\Blogtag;
+use Auth;
+use DB;
 class AdminBlogController extends Controller
 {
     /**
@@ -59,7 +62,51 @@ class AdminBlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'post' => 'required',
+            'post_excerpt' => 'required',
+            'metaDescription' => 'required',
+            'jsonData' => 'required',
+            'category_id' => 'required',
+            'tag_id' => 'required',
+        ]);
+        $categories = $request->category_id;
+        $tags = $request->tag_id;
+
+        $blogCategories = [];
+        $blogTags = [];
+        DB::beginTransaction();
+        try {
+            $blog = Blog::create([
+                'title' => $request->title,
+                'slug' => $request->title,
+                'post' => $request->post,
+                'post_excerpt' => $request->post_excerpt,
+                'user_id' => Auth::user()->id,
+                'metaDescription' => $request->metaDescription,
+                'jsonData' => $request->jsonData,
+            ]);
+            // insert blog categories
+            foreach ($categories as $c) {
+                array_push($blogCategories, ['category_id' => $c, 'blog_id' => $blog->id]);
+            }
+            Blogcategory::insert($blogCategories);
+            // insert blog tags
+            foreach ($tags as $t) {
+                array_push($blogTags, ['tag_id' => $t, 'blog_id' => $blog->id]);
+            }
+            Blogtag::insert($blogTags);
+            DB::commit();
+            return 'done';
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return 'not done';
+        }
+    }
+    public function blogdata()
+    {
+        return Blog::with(['tag', 'cat'])->orderBy('id', 'desc')->get();
     }
 
     /**
@@ -102,8 +149,12 @@ class AdminBlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        //validate request
+        $this->validate($request, [
+            'id'  => 'required'
+        ]);
+        return Blog::where('id', $request->id)->delete();
     }
 }

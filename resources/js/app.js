@@ -20,8 +20,8 @@ Vue.mixin(common);
 import jsonToHtml from './jsonToHtml'
 Vue.mixin(jsonToHtml)
 
-import Editor from 'vue-editor-js/src/index';
-Vue.use(Editor);
+import Editor from 'vue-editor-js'
+Vue.use(Editor)
 
 import moment from 'moment';//for displaying date and time nicely
 import Vue from 'vue';

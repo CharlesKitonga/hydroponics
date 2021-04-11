@@ -50,6 +50,8 @@ Route::prefix('app')->middleware([AdminCheck::class])->group(function(){
     /** Blog Routes */
     Route::post('create-blog', 'AdminBlogController@store');
     Route::get('blogdata', 'AdminBlogController@blogdata');
+    Route::get('single_blog/{id}', 'AdminBlogController@edit');
+    Route::post('update_blog/{id}', 'AdminBlogController@update');
     Route::post('/delete_blog', 'AdminBlogController@destroy');
 
     
@@ -61,12 +63,11 @@ Route::get('slug', 'AdminBlogController@slug');
 
 Route::get('/', 'AdminController@index');
 Route::get('/logout', 'AdminController@Logout');
-Route::any('{slug}', 'AdminController@index');
+Route::any('{slug}', 'AdminController@index')->where('slug', '.*');
 
 
 /**End of Admin Routes */
 
-// Route::any('{slug}', function(){
-//     return view('welcome');
+/** User Side Routes */
 
-// });
+Route::get('/home', 'PagesController@Index');

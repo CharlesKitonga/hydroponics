@@ -27,7 +27,7 @@
 								<td>{{blog.views}}</td>
 								<td>
                                     <Button type="info" size="small">Visit blog</Button>
-                                    <Button type="info" size="small" @click="showEditModal(blog, i)"  v-if="isUpdatePermitted">Edit</Button>
+                                    <Button type="info" size="small" @click="$router.push(`/editblog/${blog.id}`)"  v-if="isUpdatePermitted">Edit</Button>
                                     <Button type="error" size="small" @click="showDeleteBlog(blog, deletingIndex)" :loading="blog.isDeleting" v-if="isDeletePermitted">Delete</Button>
 								</td>
 							</tr>

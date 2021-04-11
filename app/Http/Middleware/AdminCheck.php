@@ -20,7 +20,7 @@ class AdminCheck
             return $next($request);
         }
         //first check if you are logged in
-        \Log::info('inside middleware');
+        //\Log::info('inside middleware');
         if(!Auth::check() ) {
             return response()->json([
                 'msg'=> 'Access Denied...'

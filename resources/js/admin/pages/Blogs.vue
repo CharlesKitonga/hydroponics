@@ -32,6 +32,7 @@
 								</td>
 							</tr>
 							<!-- ITEMS -->
+                            <Page :total="pageInfo.total" :current="pageInfo.current_page" :page-size="parseInt(pageInfo.per_page)" @on-change="getBlogData" v-if="pageInfo"/>
 						</table>
 					</div>
 				</div>
@@ -66,7 +67,9 @@ export default {
             showDeleteModal : false,
             deleteItem : {},
             deletingIndex : -1,
-            blogs: []
+            blogs: [],
+            total: 10,
+            pageInfo: null
         }
     },
 
@@ -86,6 +89,15 @@ export default {
             this.deletingIndex = false
             this.showDeleteModal= false
         },
+        async getBlogData(page = 1){
+            const res = await this.callApi('get', `app/blogdata?page=${page}&total=${this.total}`)
+            if (res.status===200) {
+                this.blogs = res.data.data
+                this.pageInfo = res.data
+            }else{
+                this.swr()
+            }
+        },
 
         showDeleteBlog(tag, i){
             this.deleteItem = tag
@@ -96,13 +108,8 @@ export default {
     },
 
     async created(){
-        //console.log(this.isReadPermitted)
-        const res = await this.callApi('get', 'app/blogdata')
-        if (res.status===200) {
-            this.blogs = res.data
-        }else{
-            this.swr()
-        }
+        this.getBlogData()
+        
     }
 
 }

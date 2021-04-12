@@ -104,9 +104,9 @@ class AdminBlogController extends Controller
             return 'not done';
         }
     }
-    public function blogdata()
+    public function blogdata(Request $request)
     {
-        return Blog::with(['tag', 'cat'])->orderBy('id', 'desc')->get();
+        return Blog::with(['tag', 'cat'])->orderBy('id', 'desc')->paginate($request->total);
     }
 
     /**

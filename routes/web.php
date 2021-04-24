@@ -61,13 +61,33 @@ Route::prefix('app')->middleware([AdminCheck::class])->group(function(){
 Route::post('createBlog', 'AdminBlogController@uploadImage');
 Route::get('slug', 'AdminBlogController@slug');
 
-Route::get('/', 'AdminController@index');
+Route::get('/admin', 'AdminController@index');
 Route::get('/logout', 'AdminController@Logout');
-Route::any('{slug}', 'AdminController@index')->where('slug', '.*');
-
 
 /**End of Admin Routes */
 
-/** User Side Routes */
+/** Front side Routes*/
 
-Route::get('/home', 'PagesController@Index');
+//Route::get('/home', 'PagesController@Index');
+
+Route::get('/', 'PagesController@Index');
+Route::get('/single-blog/{slug}', 'PagesController@show');
+Route::get('/about-us', 'PagesController@About');
+
+
+Route::get('/contact', 'PagesController@Contact');
+
+
+Route::get('user-login', 'PagesController@login');
+Route::get('user-register', 'PagesController@register');
+
+
+/**End of Front side Route*/
+
+Route::any('{slug}', 'AdminController@index')->where('slug', '.*');
+//Route::get('{path}', 'HomeController@index')->where('path', '.*');
+
+
+
+
+

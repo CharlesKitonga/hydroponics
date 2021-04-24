@@ -27,7 +27,7 @@ const routes =[
 
     /** projects routes start... */
     {
-        path: '/',
+        path: '/admin',
         component: home,
         name: 'home'
     },

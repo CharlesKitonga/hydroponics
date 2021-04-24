@@ -106,7 +106,7 @@ class AdminBlogController extends Controller
     }
     public function blogdata(Request $request)
     {
-        return Blog::with(['tag', 'cat'])->orderBy('id', 'desc')->paginate($request->total);
+        return Blog::with(['tag', 'category'])->orderBy('id', 'desc')->paginate($request->total);
     }
 
     /**
@@ -128,7 +128,7 @@ class AdminBlogController extends Controller
      */
     public function edit($id)
     {
-        return Blog::with(['tag', 'cat'])->where('id', $id)->first();
+        return Blog::with(['tag', 'category'])->where('id', $id)->first();
 
     }
 

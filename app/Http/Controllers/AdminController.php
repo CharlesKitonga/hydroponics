@@ -22,7 +22,7 @@ class AdminController extends Controller
             return redirect('/login');
         }
         if($request->path() == 'login') {
-            return redirect('/');
+            return redirect('/admin');
         }
         return $this->checkForPermission($user, $request);
     }

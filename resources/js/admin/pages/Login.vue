@@ -43,7 +43,7 @@
 	            const res = await this.callApi('post', 'app/admin_login', this.data)
 	        	if (res.status===200) {
                     this.s(res.data.msg)
-                    window.location = '/'
+                    window.location = '/admin'
 	        	}else{
 	        		if (res.status===401) {
 	        			this.e(res.data.msg)

@@ -38,7 +38,7 @@ class UsersController extends Controller
     {
         //validate request
         $this->validate($request, [
-            'fullName' => 'required|string',
+            'name' => 'required|string',
             'email' => 'bail|required|email|unique:users',
             'password' => 'bail|required|min:8',
             'role_id' => 'required|integer'
@@ -47,7 +47,7 @@ class UsersController extends Controller
         $password = bcrypt($request->password);
 
         $user = User::create([
-            'fullName' => $request->fullName,
+            'name' => $request->name,
             'email' => $request->email,
             'password' => $password,
             'role_id' => $request->role_id,
@@ -67,13 +67,13 @@ class UsersController extends Controller
     {
         //validate request
         $this->validate($request, [
-            'fullName' => 'required|string',
+            'name' => 'required|string',
             'email' => "bail|required|email|unique:users,email,$request->id",
             'password' => 'min:8',
             'role_id' => 'required|integer'
         ]);
         $data = [
-                'fullName' => $request->fullName,
+                'name' => $request->name,
                 'email' => $request->email,
                 'role_id' => $request->role_id,
         ];

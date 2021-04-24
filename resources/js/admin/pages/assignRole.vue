@@ -51,7 +51,7 @@ export default {
             isSending : false,
             roles : [],
             resources: [
-                {resourceName: 'Home', read: false, write:false, update:false, delete: false, name: '/'},
+                {resourceName: 'Home', read: false, write:false, update:false, delete: false, name: 'admin'},
                 {resourceName: 'Tags', read: false, write:false, update:false, delete: false, name: 'tags'},
                 {resourceName: 'Categories', read: false, write:false, update:false, delete: false, name: 'categories'},
                 {resourceName: 'Create blogs', read: false, write:false, update:false, delete: false, name: 'createBlog'},
@@ -62,7 +62,7 @@ export default {
 
             ],
             defaultResourcesPermission: [
-                {resourceName: 'Home', read: false, write:false, update:false, delete: false, name: '/'},
+                {resourceName: 'Home', read: false, write:false, update:false, delete: false, name: 'admin'},
                 {resourceName: 'Tags', read: false, write:false, update:false, delete: false, name: 'tags'},
                 {resourceName: 'Categories', read: false, write:false, update:false, delete: false, name: 'categories'},
                 {resourceName: 'Create blogs', read: false, write:false, update:false, delete: false, name: 'createBlog'},
@@ -95,7 +95,7 @@ export default {
                 this.resources = this.defaultResourcesPermission
             }else{
                 this.resources = JSON.parse(permission)
-                //this.resources = this.defaultResourcesPermission
+                this.resources = this.defaultResourcesPermission
             }
         }
 

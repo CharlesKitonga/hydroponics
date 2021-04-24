@@ -20,7 +20,7 @@
 								<!-- TABLE TITLE -->
 							<tr v-for="(user, i) in users" :key="i">
 								<td>{{user.id}}</td>
-                                <td class="_table_name">{{user.fullName}}</td>
+                                <td class="_table_name">{{user.name}}</td>
                                 <td >{{user.email}}</td>
                                 <td >{{user.userType}}</td>
 								<td>{{user.created_at | myDate}}</td>
@@ -42,7 +42,7 @@
                     :closable="false"
                     >
                         <div class="space">
-                            <Input type="text" v-model="data.fullName" placeholder="Full name..." required/>
+                            <Input type="text" v-model="data.name" placeholder="Full name..." required/>
                         </div>
                         <div class="space">
                             <Input type="email" v-model="data.email" placeholder="Email..." required/>
@@ -73,7 +73,7 @@
                     :closable="false"
                     >
                         <div class="space">
-                            <Input type="text" v-model="editData.fullName" placeholder="Edit Full name..." required/>
+                            <Input type="text" v-model="editData.name" placeholder="Edit Full name..." required/>
                         </div>
 
                         <div class="space">
@@ -121,7 +121,7 @@ export default {
     data(){
         return{
             data :{
-                fullName : '',
+                name : '',
                 email : '',
                 password : '',
                 role_id: ''
@@ -144,7 +144,7 @@ export default {
 
     methods : {
         async addUser(){
-            if (this.data.fullName.trim()=='') return this.e('Full name field is required')
+            if (this.data.name.trim()=='') return this.e('Full name field is required')
             if (this.data.email.trim()=='') return this.e('Email field is required')
             if (this.data.password.trim()=='') return this.e('Password field is required')
             if (!this.data.role_id) return this.e('Usertype field is required')
@@ -166,7 +166,7 @@ export default {
         },
 
         async editUser(){
-            if (this.editData.fullName.trim()=='') return this.e('Full name field is required')
+            if (this.editData.name.trim()=='') return this.e('Full name field is required')
             if (this.editData.email.trim()=='') return this.e('Email field is required')
             if (!this.editData.role_id) return this.e('Usertype field is required')
 
@@ -189,7 +189,7 @@ export default {
         showEditModal(user, index){
             let obj = {
                 id : user.id,
-                fullName : user.fullName,
+                name : user.name,
                 email : user.email,
                 userType: user.role_id
             }

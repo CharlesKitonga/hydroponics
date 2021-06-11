@@ -3,11 +3,11 @@
 		<div class="row">
 			<div class="col-md-4 logo text-left">
 				<a class="navbar-brand" href="index.html">
-					<i class="fab fa-linode"></i> Weblog</a>
+					<i class="fab fa-linode"></i> AgriBlog</a>
 			</div>
 			<div class="col-md-4 top-forms text-center mt-lg-3 mt-md-1 mt-0">
-				<span>Welcome Back!</span>
-				@guest
+<!-- 				<span>Welcome Back!</span>
+ -->				@guest
 					<span class="mx-lg-4 mx-md-2  mx-1">
 						<a href="{{ url('user-login') }}">
 							<i class="fas fa-lock"></i> Sign In</a>

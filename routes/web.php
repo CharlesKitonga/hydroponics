@@ -69,6 +69,7 @@ Route::get('/logout', 'AdminController@Logout');
 /** Front side Routes*/
 
 //Route::get('/home', 'PagesController@Index');
+Auth::routes();
 
 Route::get('/', 'PagesController@Index');
 Route::get('/single-blog/{slug}', 'PagesController@show');
@@ -78,7 +79,7 @@ Route::get('/about-us', 'PagesController@About');
 Route::get('/contact', 'PagesController@Contact');
 
 
-Route::get('user-login', 'PagesController@login');
+Route::match(['get', 'post'],'user-login', 'PagesController@login');
 Route::get('user-register', 'PagesController@register');
 
 

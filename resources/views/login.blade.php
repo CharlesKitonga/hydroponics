@@ -17,7 +17,7 @@
 				<h3 class="tittle">Login</h3>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ url('user-login') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -56,6 +56,7 @@
                                     <label class="form-check-label" for="remember">
                                         {{ __('Remember Me') }}
                                     </label>
+
                                 </div>
                             </div>
                         </div>

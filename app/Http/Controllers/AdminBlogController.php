@@ -46,7 +46,6 @@ class AdminBlogController extends Controller
         $title = "Example Title Case";
         return Blog::create([
             'title' => $title,
-            'post' => 'some post',
             'post_excerpt' => 'let us read',
             'user_id' => 1,
             'metaDescription' => 'some post on very exciting news',
@@ -64,7 +63,6 @@ class AdminBlogController extends Controller
     {
         $this->validate($request, [
             'title' => 'required',
-            'post' => 'required',
             'post_excerpt' => 'required',
             'metaDescription' => 'required',
             'jsonData' => 'required',
@@ -81,7 +79,6 @@ class AdminBlogController extends Controller
             $blog = Blog::create([
                 'title' => $request->title,
                 'slug' => $request->title,
-                'post' => $request->post,
                 'post_excerpt' => $request->post_excerpt,
                 'user_id' => Auth::user()->id,
                 'metaDescription' => $request->metaDescription,
@@ -143,7 +140,6 @@ class AdminBlogController extends Controller
     {
         $this->validate($request, [
             'title' => 'required',
-            'post' => 'required',
             'post_excerpt' => 'required',
             'metaDescription' => 'required',
             'jsonData' => 'required',
@@ -160,7 +156,6 @@ class AdminBlogController extends Controller
             $blog = Blog::where('id', $id)->update([
                 'title' => $request->title,
                 'slug' => $request->title,
-                'post' => $request->post,
                 'post_excerpt' => $request->post_excerpt,
                 'user_id' => Auth::user()->id,
                 'metaDescription' => $request->metaDescription,

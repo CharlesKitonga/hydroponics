@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 use App\Category;
 use App\Blog;
+use App\User;
+use Auth;
+use Session;
 
 class PagesController extends Controller
 {
@@ -62,13 +67,34 @@ class PagesController extends Controller
     	return view('contact');
     }
 
-    public function login(){
-
+    public function login(Request $request){
+        if ($request->isMethod('post')) {
+			$data = $request ->input();
+			if (Auth::attempt(['email'=>$data['email'],'password'=>$data['password']])) {
+				// echo "success";die;
+				Session::put('userSession',$data['email']);
+				return redirect('/');
+			}else{
+				// echo "Failed";die;
+				return redirect('/user-login')->with('flash_message_error','Invlaid Username or Password');
+			}
+		}
         return view('login');
     }
 
-    public function register(){
+    public function register(Request $request){
+        if($request->isMethod('post')){
+            $user = new User();
+            $name = $request->name;
+            $user->name = $request->name; 
+            $user->email = $request->email; 
+            $user->slug = Str::slug($name);
+            $user->password = Hash::make($request->password);
+            //dd($user);
+            $user->save();
 
+            return redirect('/');
+        }
         return view('register');
     }
 }

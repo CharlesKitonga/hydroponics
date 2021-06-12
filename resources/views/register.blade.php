@@ -17,7 +17,7 @@
 				<h3 class="tittle">Register Now</h3>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ url('user-register') }}">
                         @csrf
 
                         <div class="form-group row">

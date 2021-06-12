@@ -80,7 +80,7 @@ Route::get('/contact', 'PagesController@Contact');
 
 
 Route::match(['get', 'post'],'user-login', 'PagesController@login');
-Route::get('user-register', 'PagesController@register');
+Route::match(['get', 'post'], 'user-register', 'PagesController@register')->name('user-register');
 
 
 /**End of Front side Route*/

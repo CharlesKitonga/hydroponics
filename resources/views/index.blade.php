@@ -114,7 +114,7 @@
 					<div class="right-blog-info text-left">
 						<div class="tech-btm">
 							<h4>Recent Posts</h4>
-							
+							@foreach($recentBlogs as $blog)
 							<div class="blog-grids row mb-3">
 								<div class="col-md-5 blog-grid-left">
 									<a href="{{url('single-blog')}}">
@@ -124,103 +124,16 @@
 								<div class="col-md-7 blog-grid-right">
 
 									<h5>
-										<a href="{{url('single-blog')}}">Pellentesque dui, non felis. Maecenas male non felis </a>
+										<a href="{{url('single-blog')}}">{{$blog->title}} </a>
 									</h5>
 									<div class="sub-meta">
 										<span>
-											<i class="far fa-clock"></i> 20 Jan, 2018</span>
+										<i class="far fa-clock"></i> {{$blog->created_at->diffForHumans()}}</a>
 									</div>
 								</div>
 								
-							</div>
-							<div class="blog-grids row mb-3">
-								<div class="col-md-5 blog-grid-left">
-									<a href="{{url('single-blog')}}">
-										<img src="images/5.jpg" class="img-fluid" alt="">
-									</a>
-								</div>
-								<div class="col-md-7 blog-grid-right">
-
-									<h5>
-										<a href="{{url('single-blog')}}">Pellentesque dui, non felis. Maecenas male non felis </a>
-									</h5>
-									<div class="sub-meta">
-										<span>
-											<i class="far fa-clock"></i> 20 Jan, 2018</span>
-									</div>
-								</div>
-								<div class="clearfix"> </div>
-							</div>
-							<div class="blog-grids row mb-3">
-								<div class="col-md-5 blog-grid-left">
-									<a href="{{url('single-blog')}}">
-										<img src="images/3.jpg" class="img-fluid" alt="">
-									</a>
-								</div>
-								<div class="col-md-7 blog-grid-right">
-									<h5>
-										<a href="{{url('single-blog')}}">Pellentesque dui, non felis. Maecenas male non felis </a>
-									</h5>
-									<div class="sub-meta">
-										<span>
-											<i class="far fa-clock"></i> 20 Feb, 2018</span>
-									</div>
-								</div>
-								
-							</div>
-							<div class="blog-grids row mb-3">
-								<div class="col-md-5 blog-grid-left">
-									<a href="{{url('single-blog')}}">
-										<img src="images/2.jpg" class="img-fluid" alt="">
-									</a>
-								</div>
-								<div class="col-md-7 blog-grid-right">
-
-									<h5>
-										<a href="{{url('single-blog')}}">Pellentesque dui, non felis. Maecenas male non felis </a>
-									</h5>
-									<div class="sub-meta">
-										<span>
-											<i class="far fa-clock"></i> 20 Jan, 2018</span>
-									</div>
-								</div>
-								
-							</div>
-							<div class="blog-grids row mb-3">
-								<div class="col-md-5 blog-grid-left">
-									<a href="{{url('single-blog')}}">
-										<img src="images/4.jpg" class="img-fluid" alt="">
-									</a>
-								</div>
-								<div class="col-md-7 blog-grid-right">
-
-									<h5>
-										<a href="{{url('single-blog')}}">Pellentesque dui, non felis. Maecenas male non felis </a>
-									</h5>
-									<div class="sub-meta">
-										<span>
-											<i class="far fa-clock"></i> 20 Jan, 2018</span>
-									</div>
-								</div>
-								
-							</div>
-							<div class="blog-grids row mb-3">
-								<div class="col-md-5 blog-grid-left">
-									<a href="{{url('single-blog')}}">
-										<img src="images/6.jpg" class="img-fluid" alt="">
-									</a>
-								</div>
-								<div class="col-md-7 blog-grid-right">
-									<h5>
-										<a href="{{url('single-blog')}}">Pellentesque dui, non felis. Maecenas male non felis </a>
-									</h5>
-									<div class="sub-meta">
-										<span>
-											<i class="far fa-clock"></i> 20 Feb, 2018</span>
-									</div>
-								</div>
-								
-							</div>
+							</div> 
+							@endforeach
 						</div>
 					</div>
 

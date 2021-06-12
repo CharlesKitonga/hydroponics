@@ -16,11 +16,12 @@ class PagesController extends Controller
 {
     public function Index(){
         
-        $categories = Category::orderBy('id', 'desc')->limit(3)->get();
-        $blogs = Blog::orderBy('id', 'desc')->with('category', 'tag', 'user')->limit(4)->get();
+        $categories = Category::inRandomOrder('id', 'desc')->limit(3)->get();
+        $blogs = Blog::inRandomOrder()->with('category', 'tag', 'user')->limit(4)->get();
+        $recentBlogs = Blog::orderBy('id', 'desc')->with('category', 'tag', 'user')->limit(4)->get();
         
         //dd($blogs);
-        return view('index', compact('categories','blogs'));
+        return view('index', compact('categories','blogs','recentBlogs'));
     }
     public function compose(View $view){
 
